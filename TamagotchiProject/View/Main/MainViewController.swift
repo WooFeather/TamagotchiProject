@@ -11,6 +11,13 @@ final class MainViewController: BaseViewController {
 
     private let mainView = MainView()
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        print(UserDefaultsManager.tamagotchiImageData)
+        print(UserDefaultsManager.tamagotchiName)
+    }
+    
     override func loadView() {
         view = mainView
     }

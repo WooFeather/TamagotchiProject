@@ -20,8 +20,14 @@ final class PopupViewController: BaseViewController {
     }
     
     override func bind() {
+        let selectedImageData = PublishSubject<Data>()
+        let selectedName = PublishSubject<String>()
+        
         let input = PopupViewModel.Input(
-            cancelButtonTapped: popupView.cancelButton.rx.tap
+            cancelButtonTapped: popupView.cancelButton.rx.tap,
+            startButtonTapped: popupView.startButton.rx.tap,
+            selectedImageData: selectedImageData,
+            selectedName: selectedName
         )
         let output = viewModel.transform(input: input)
         
@@ -39,12 +45,10 @@ final class PopupViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        // TODO: ViewModel로 분리
-        popupView.startButton.rx.tap
+        output.startButtonTapped
             .bind(with: self) { owner, _ in
-                // TODO: UserDefaults에 다마고치 데이터 값전달(저장)
-                
-                print(UserDefaultsManager.tamagotchi.name)
+                selectedImageData.onNext(owner.popupView.imageView.image?.pngData() ?? Data())
+                selectedName.onNext(owner.popupView.nameLabel.text ?? "")
                 
                 let vc = MainViewController()
                 let nav = UINavigationController(rootViewController: vc)

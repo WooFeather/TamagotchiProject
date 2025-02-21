@@ -25,12 +25,16 @@ struct MyUserDefaults<T> {
 enum UserDefaultsManager {
     enum Key: String {
         case isSigned
-        case tamagotchi
+        case tamagotchiImageData
+        case tamagotchiName
     }
     
     @MyUserDefaults(key: Key.isSigned.rawValue, defaultValue: false)
     static var isSigned
     
-    @MyUserDefaults(key: Key.tamagotchi.rawValue, defaultValue: Tamagotchi(image: ._1_1, name: "", description: ""))
-    static var tamagotchi
+    @MyUserDefaults(key: Key.tamagotchiImageData.rawValue, defaultValue: Data())
+    static var tamagotchiImageData
+    
+    @MyUserDefaults(key: Key.tamagotchiName.rawValue, defaultValue: "")
+    static var tamagotchiName
 }

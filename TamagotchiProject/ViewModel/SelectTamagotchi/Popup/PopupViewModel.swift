@@ -16,18 +16,29 @@ final class PopupViewModel: BaseViewModel {
     
     struct Input {
         let cancelButtonTapped: ControlEvent<Void>
+        let startButtonTapped: ControlEvent<Void>
+        let selectedImageData: PublishSubject<Data>
+        let selectedName: PublishSubject<String>
     }
     
     struct Output {
         let selectedTamagotchi: Observable<Tamagotchi>
         let cancelButtonTapped: ControlEvent<Void>
+        let startButtonTapped: ControlEvent<Void>
     }
     
     func transform(input: Input) -> Output {
+        Observable.zip(input.selectedImageData, input.selectedName)
+            .bind(with: self) { owner, value in
+                UserDefaultsManager.tamagotchiImageData = value.0
+                UserDefaultsManager.tamagotchiName = value.1
+            }
+            .disposed(by: disposeBag)
         
         return Output(
             selectedTamagotchi: selectedTamagotchi,
-            cancelButtonTapped: input.cancelButtonTapped
+            cancelButtonTapped: input.cancelButtonTapped,
+            startButtonTapped: input.startButtonTapped
         )
     }
 }
