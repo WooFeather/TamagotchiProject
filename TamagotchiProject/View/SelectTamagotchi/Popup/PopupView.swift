@@ -1,5 +1,5 @@
 //
-//  SelectTamagotchiPopupView.swift
+//  PopupView.swift
 //  TamagotchiProject
 //
 //  Created by 조우현 on 2/21/25.
@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SelectTamagotchiPopupView: BaseView {
+final class PopupView: BaseView {
 
     private let backgroundView = UIView()
     private let dividerView = UIView()
@@ -75,7 +75,7 @@ class SelectTamagotchiPopupView: BaseView {
         backgroundView.backgroundColor = .tpBackground
         backgroundView.layer.cornerRadius = 8
         
-        imageView.image = ._1_6
+//        imageView.image = ._1_6
         imageView.contentMode = .scaleAspectFit
         
         nameLabel.text = "테스트임 다마고치"

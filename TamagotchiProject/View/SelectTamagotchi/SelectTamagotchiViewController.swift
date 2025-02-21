@@ -37,8 +37,11 @@ final class SelectTamagotchiViewController: BaseViewController {
             .bind(with: self) { owner, value in
                 if value.0 {
                     print(value.1.name)
-                    let vc = SelectTamagotchiPopupViewController()
+                    let vc = PopupViewController()
                     vc.modalPresentationStyle = .overCurrentContext
+                    vc.viewModel.imageContents.onNext(value.1.image.pngData() ?? Data())
+                    vc.viewModel.nameContents.onNext(value.1.name)
+                    vc.viewModel.descriptionContents.onNext(value.1.description)
                     owner.present(vc, animated: true)
                 }
             }
