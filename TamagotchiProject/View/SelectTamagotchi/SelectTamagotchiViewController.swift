@@ -20,13 +20,24 @@ final class SelectTamagotchiViewController: BaseViewController {
     }
     
     override func bind() {
-        let input = SelectTamagotchiViewModel.Input()
+        let input = SelectTamagotchiViewModel.Input(
+            cellIndex: selectTamagotchiView.tamagotchiCollectionView.rx.itemSelected,
+            cellData: selectTamagotchiView.tamagotchiCollectionView.rx.modelSelected(Tamagotchi.self)
+        )
         let output = viewModel.transform(input: input)
         
-        output.names
+        output.tamagotchiList
             .bind(to: selectTamagotchiView.tamagotchiCollectionView.rx.items(cellIdentifier: TamagotchiCollectionViewCell.id, cellType: TamagotchiCollectionViewCell.self)) { (item, element, cell) in
-                cell.nameLabel.text = element
-                cell.imageView.image = ._1_6
+                cell.imageView.image = element.image
+                cell.nameLabel.text = element.name
+            }
+            .disposed(by: disposeBag)
+        
+        Observable.zip(output.isValidate, output.tamagotchiData)
+            .bind(with: self) { owner, value in
+                if value.0 {
+                    print(value.1.name)
+                }
             }
             .disposed(by: disposeBag)
     }

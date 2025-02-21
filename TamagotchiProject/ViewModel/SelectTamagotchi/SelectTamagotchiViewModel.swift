@@ -13,18 +13,37 @@ final class SelectTamagotchiViewModel: BaseViewModel {
     
     var disposeBag = DisposeBag()
     
-    var names = BehaviorSubject(value: ["따끔따끔 다마고치", "방실방실 다마고치", "반짝반짝 다마고치", "준비중이에요"])
+    var tamagotchiList = Observable.just(TamagotchiInfo().tamagotchiList)
     
     struct Input {
-        
+        let cellIndex: ControlEvent<IndexPath>
+        let cellData: ControlEvent<Tamagotchi>
     }
     
     struct Output {
-        let names: BehaviorSubject<[String]>
+        let tamagotchiList: Observable<[Tamagotchi]>
+        let isValidate: Observable<Bool>
+        let tamagotchiData: Observable<Tamagotchi>
     }
     
     func transform(input: Input) -> Output {
         
-        return Output(names: names)
+        let isValidate = input.cellIndex
+            .map { value in
+                if value.item < 3 {
+                    return true
+                } else {
+                    return false
+                }
+            }
+        
+        let tamagotchiData = input.cellData
+            .map { $0 }
+        
+        return Output(
+            tamagotchiList: tamagotchiList,
+            isValidate: isValidate,
+            tamagotchiData: tamagotchiData
+        )
     }
 }
