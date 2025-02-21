@@ -37,6 +37,9 @@ final class SelectTamagotchiViewController: BaseViewController {
             .bind(with: self) { owner, value in
                 if value.0 {
                     print(value.1.name)
+                    let vc = SelectTamagotchiPopupViewController()
+                    vc.modalPresentationStyle = .overCurrentContext
+                    owner.present(vc, animated: true)
                 }
             }
             .disposed(by: disposeBag)

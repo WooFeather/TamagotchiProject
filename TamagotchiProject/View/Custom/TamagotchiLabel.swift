@@ -8,7 +8,7 @@
 import UIKit
 
 final class TamagotchiLabel: UILabel {
-    private var padding = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4)
+    private var padding = UIEdgeInsets(top: 10, left: 6, bottom: 10, right: 6)
     
     convenience init(padding: UIEdgeInsets) {
         self.init()

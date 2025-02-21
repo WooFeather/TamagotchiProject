@@ -29,7 +29,7 @@ final class TamagotchiCollectionViewCell: BaseCollectionViewCell {
         nameLabel.snp.makeConstraints { make in
             make.centerX.equalTo(imageView.snp.centerX)
             make.bottom.equalToSuperview()
-            make.height.equalTo(21)
+            make.height.equalTo(28)
         }
     }
     
