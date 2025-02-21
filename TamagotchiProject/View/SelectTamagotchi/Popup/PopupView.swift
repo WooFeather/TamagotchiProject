@@ -75,14 +75,10 @@ final class PopupView: BaseView {
         backgroundView.backgroundColor = .tpBackground
         backgroundView.layer.cornerRadius = 8
         
-//        imageView.image = ._1_6
         imageView.contentMode = .scaleAspectFit
-        
-        nameLabel.text = "테스트임 다마고치"
         
         dividerView.backgroundColor = .tpAccent
         
-        descriptionLabel.text = "안녕하세요 선생님 안녕 친구야 인사하는 어린이 착한 어린이 안녕하세요 선생님 안녕 친구야 인사하는 어린이 착한 어린이 안녕하세요 선생님 안녕 친구야 인사하는 어린이 착한 어린이 안녕하세요 선생님 안녕 친구야 인사하는 어린이 착한 어린이 "
         descriptionLabel.font = .systemFont(ofSize: 15)
         descriptionLabel.textAlignment = .center
         descriptionLabel.textColor = .tpAccent

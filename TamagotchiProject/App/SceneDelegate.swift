@@ -16,10 +16,19 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let scene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: scene)
         
-        let vc = SelectTamagotchiViewController()
-        let nav = UINavigationController(rootViewController: vc)
-        window?.rootViewController = nav
-        window?.makeKeyAndVisible()
+        let isSigned = UserDefaultsManager.isSigned
+        
+        if isSigned {
+            let vc = MainViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            window?.rootViewController = nav
+            window?.makeKeyAndVisible()
+        } else {
+            let vc = SelectTamagotchiViewController()
+            let nav = UINavigationController(rootViewController: vc)
+            window?.rootViewController = nav
+            window?.makeKeyAndVisible()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

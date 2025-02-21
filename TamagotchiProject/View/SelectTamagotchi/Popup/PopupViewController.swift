@@ -11,30 +11,45 @@ import RxCocoa
 
 final class PopupViewController: BaseViewController {
         
-    let disposeBag = DisposeBag()
-    let viewModel = PopupViewModel()
+    private let disposeBag = DisposeBag()
     private let popupView = PopupView()
+    let viewModel = PopupViewModel()
     
     override func loadView() {
         view = popupView
     }
     
     override func bind() {
-        let input = PopupViewModel.Input()
+        let input = PopupViewModel.Input(
+            cancelButtonTapped: popupView.cancelButton.rx.tap
+        )
         let output = viewModel.transform(input: input)
         
-        output.imageContents
-            .bind(with: self) { owner, imageData in
-                owner.popupView.imageView.image = UIImage(data: imageData)
+        output.selectedTamagotchi
+            .bind(with: self) { owner, value in
+                owner.popupView.imageView.image = value.image
+                owner.popupView.nameLabel.text = value.name
+                owner.popupView.descriptionLabel.text = value.description
             }
             .disposed(by: disposeBag)
         
-        output.nameContents
-            .bind(to: popupView.nameLabel.rx.text)
+        output.cancelButtonTapped
+            .bind(with: self) { owner, _ in
+                owner.dismiss(animated: true)
+            }
             .disposed(by: disposeBag)
         
-        output.descriptionContents
-            .bind(to: popupView.descriptionLabel.rx.text)
+        // TODO: ViewModel로 분리
+        popupView.startButton.rx.tap
+            .bind(with: self) { owner, _ in
+                // TODO: UserDefaults에 다마고치 데이터 값전달(저장)
+                
+                print(UserDefaultsManager.tamagotchi.name)
+                
+                let vc = MainViewController()
+                let nav = UINavigationController(rootViewController: vc)
+                owner.changeRootViewController(vc: nav, isSigned: true)
+            }
             .disposed(by: disposeBag)
     }
     

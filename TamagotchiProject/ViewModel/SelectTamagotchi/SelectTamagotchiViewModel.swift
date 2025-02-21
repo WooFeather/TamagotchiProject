@@ -23,7 +23,7 @@ final class SelectTamagotchiViewModel: BaseViewModel {
     struct Output {
         let tamagotchiList: Observable<[Tamagotchi]>
         let isValidate: Observable<Bool>
-        let tamagotchiData: Observable<Tamagotchi>
+        let tamagotchiData: ControlEvent<Tamagotchi>
     }
     
     func transform(input: Input) -> Output {
@@ -37,13 +37,10 @@ final class SelectTamagotchiViewModel: BaseViewModel {
                 }
             }
         
-        let tamagotchiData = input.cellData
-            .map { $0 }
-        
         return Output(
             tamagotchiList: tamagotchiList,
             isValidate: isValidate,
-            tamagotchiData: tamagotchiData
+            tamagotchiData: input.cellData
         )
     }
 }

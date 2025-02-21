@@ -12,27 +12,22 @@ import RxCocoa
 final class PopupViewModel: BaseViewModel {
     var disposeBag = DisposeBag()
     
-    var imageContents = BehaviorSubject(value: Data())
-    var nameContents = BehaviorSubject(value: "")
-    var descriptionContents = BehaviorSubject(value: "")
+    var selectedTamagotchi = BehaviorSubject(value: Tamagotchi(image: ._1_1, name: "", description: ""))
     
     struct Input {
-        
+        let cancelButtonTapped: ControlEvent<Void>
     }
     
     struct Output {
-        let imageContents: Observable<Data>
-        let nameContents: Observable<String>
-        let descriptionContents: Observable<String>
+        let selectedTamagotchi: Observable<Tamagotchi>
+        let cancelButtonTapped: ControlEvent<Void>
     }
     
     func transform(input: Input) -> Output {
         
-        
         return Output(
-            imageContents: imageContents,
-            nameContents: nameContents,
-            descriptionContents: descriptionContents
+            selectedTamagotchi: selectedTamagotchi,
+            cancelButtonTapped: input.cancelButtonTapped
         )
     }
 }

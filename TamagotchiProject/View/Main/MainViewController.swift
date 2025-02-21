@@ -9,6 +9,14 @@ import UIKit
 
 final class MainViewController: BaseViewController {
 
+    private let mainView = MainView()
     
+    override func loadView() {
+        view = mainView
+    }
 
+    override func configureView() {
+        view.backgroundColor = .brown
+        navigationItem.title = "대장님의 다마고치"
+    }
 }
