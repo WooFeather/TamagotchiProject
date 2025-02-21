@@ -29,7 +29,8 @@ final class MainViewModel: BaseViewModel {
         print("MainViewModel Deinit")
     }
     
-    func transform() {
+    func transform(input: Input) -> Output {
         
+        return Output()
     }
 }
