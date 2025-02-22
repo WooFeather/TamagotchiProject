@@ -113,17 +113,5 @@ final class MainView: BaseView {
         
         riceStackView.spacing = 8
         waterStackView.spacing = 8
-        
-        riceTextField.textField.placeholder = "밥주세용"
-        riceTextField.textField.textAlignment = .center
-        riceTextField.textField.font = .systemFont(ofSize: 14)
-        riceTextField.textField.textColor = .tpAccent
-        riceTextField.textField.keyboardType = .decimalPad
-        
-        waterTextField.textField.placeholder = "물주세용"
-        waterTextField.textField.textAlignment = .center
-        waterTextField.textField.font = .systemFont(ofSize: 14)
-        waterTextField.textField.textColor = .tpAccent
-        waterTextField.textField.keyboardType = .decimalPad
     }
 }
