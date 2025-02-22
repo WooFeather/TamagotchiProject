@@ -27,6 +27,7 @@ enum UserDefaultsManager {
         case isSigned
         case tamagotchiImageData
         case tamagotchiName
+        case nickname
     }
     
     @MyUserDefaults(key: Key.isSigned.rawValue, defaultValue: false)
@@ -37,4 +38,7 @@ enum UserDefaultsManager {
     
     @MyUserDefaults(key: Key.tamagotchiName.rawValue, defaultValue: "")
     static var tamagotchiName
+    
+    @MyUserDefaults(key: Key.nickname.rawValue, defaultValue: "대장")
+    static var nickname
 }

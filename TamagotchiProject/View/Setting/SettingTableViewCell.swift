@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-class SettingTableViewCell: BaseTableViewCell {
+final class SettingTableViewCell: BaseTableViewCell {
     
     static let id = "SettingTableViewCell"
     
@@ -54,6 +54,7 @@ class SettingTableViewCell: BaseTableViewCell {
         iconImageView.contentMode = .scaleAspectFit
         
         titleLabel.font = .boldSystemFont(ofSize: 14)
+        titleLabel.textColor = .tpAccent
         
         subtitleLabel.text = ""
         subtitleLabel.font = .systemFont(ofSize: 13)

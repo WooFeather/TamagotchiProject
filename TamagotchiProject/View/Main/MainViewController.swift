@@ -27,6 +27,7 @@ final class MainViewController: BaseViewController {
     }
     
     override func bind() {
+        // TODO: ViewModel로 빼기
         navigationItem.rightBarButtonItem?.rx.tap
             .bind(with: self) { owner, _ in
                 let vc = SettingViewController()
@@ -37,9 +38,8 @@ final class MainViewController: BaseViewController {
 
     override func configureView() {
         view.backgroundColor = .tpBackground
-        navigationItem.title = "대장님의 다마고치"
+        navigationItem.title = "\(UserDefaultsManager.nickname)님의 다마고치"
         let barButtonItem = UIBarButtonItem(image: UIImage(systemName: "person.circle"))
         navigationItem.setRightBarButton(barButtonItem, animated: true)
-        navigationItem.rightBarButtonItem?.tintColor = .tpAccent
     }
 }

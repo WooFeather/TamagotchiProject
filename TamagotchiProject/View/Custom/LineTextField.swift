@@ -12,12 +12,12 @@ final class LineTextField: UIView {
     let textField = UITextField()
     private let underLine = UIView()
     
-    init(placeholder: String) {
+    init(placeholder: String, keyBoardType: UIKeyboardType = .decimalPad) {
         super.init(frame: .zero)
         
         configureHierarchy()
         configureLayout()
-        configureView(placeholder)
+        configureView(placeholder, keyboardType: keyBoardType)
     }
     
     private func configureHierarchy() {
@@ -36,13 +36,14 @@ final class LineTextField: UIView {
         }
     }
     
-    private func configureView(_ placeholder: String) {
+    private func configureView(_ placeholder: String, keyboardType: UIKeyboardType) {
         textField.borderStyle = .none
         textField.placeholder = placeholder
         textField.textAlignment = .center
         textField.font = .systemFont(ofSize: 14)
         textField.textColor = .tpAccent
-        textField.keyboardType = .decimalPad
+        textField.keyboardType = keyboardType
+        textField.tintColor = .tpAccent
         
         underLine.backgroundColor = .tpAccent
     }

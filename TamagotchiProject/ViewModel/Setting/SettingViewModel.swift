@@ -15,16 +15,20 @@ final class SettingViewModel: BaseViewModel {
     var settingList = Observable.just(SettingList.allCases)
     
     struct Input {
-        
+        let cellTapped: ControlEvent<IndexPath>
     }
     
     struct Output {
         let settingList: Observable<[SettingList]>
+        let cellTapped: ControlEvent<IndexPath>
     }
     
     func transform(input: Input) -> Output {
         
-        return Output(settingList: settingList)
+        return Output(
+            settingList: settingList,
+            cellTapped: input.cellTapped
+        )
     }
 }
 
