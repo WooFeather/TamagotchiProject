@@ -24,21 +24,17 @@ final class SettingViewController: BaseViewController {
         let output = viewModel.transform(input: input)
         
         output.settingList
-            .bind(to: settingView.settingTableView.rx.items(cellIdentifier: "SettingCell", cellType: UITableViewCell.self)) { (row, element, cell) in
+            .bind(to: settingView.settingTableView.rx.items(cellIdentifier: SettingTableViewCell.id, cellType: SettingTableViewCell.self)) { (row, element, cell) in
                 
-                cell.textLabel?.text = element.name
-                cell.imageView?.image = element.image
-                
-                cell.accessoryType = .disclosureIndicator
+                cell.titleLabel.text = element.name
+                cell.iconImageView.image = element.image
                 cell.backgroundColor = .tpBackground
-                cell.tintColor = .tpAccent
-                cell.textLabel?.font = .boldSystemFont(ofSize: 14)
                 cell.selectionStyle = .none
-  
-                // TODO: 커스텀셀로 만들어야 할듯
-//                if row == 0 {
-//                    cell.detailTextLabel?.text = "고래밥"
-//                }
+                
+                if row == 0 {
+                    // TODO: UserDefaults에 저장된 닉네임으로 교체 예정
+                    cell.subtitleLabel.text = "고래밥"
+                }
             }
             .disposed(by: disposeBag)
     }
@@ -49,6 +45,6 @@ final class SettingViewController: BaseViewController {
     }
     
     override func configureData() {
-        settingView.settingTableView.register(UITableViewCell.self, forCellReuseIdentifier: "SettingCell")
+        settingView.settingTableView.register(SettingTableViewCell.self, forCellReuseIdentifier: SettingTableViewCell.id)
     }
 }

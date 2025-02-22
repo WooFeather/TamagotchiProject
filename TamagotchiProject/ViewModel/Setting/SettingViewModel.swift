@@ -27,3 +27,4 @@ final class SettingViewModel: BaseViewModel {
         return Output(settingList: settingList)
     }
 }
+
