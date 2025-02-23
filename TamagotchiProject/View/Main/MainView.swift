@@ -102,7 +102,6 @@ final class MainView: BaseView {
         bubbleLabel.textAlignment = .center
         bubbleLabel.numberOfLines = 0
         
-        tamagotchiImageView.image = UIImage(data: UserDefaultsManager.tamagotchiImageData)
         tamagotchiImageView.contentMode = .scaleAspectFit
         
         tamagotchiNameLabel.text = UserDefaultsManager.tamagotchiName

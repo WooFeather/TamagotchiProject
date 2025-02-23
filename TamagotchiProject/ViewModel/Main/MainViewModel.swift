@@ -14,11 +14,11 @@ final class MainViewModel: BaseViewModel {
     var disposeBag = DisposeBag()
     
     struct Input {
-        
+        let settingButtonTapped: ControlEvent<Void>?
     }
     
     struct Output {
-        
+        let settingButtonTapped: ControlEvent<Void>?
     }
     
     init() {
@@ -31,6 +31,6 @@ final class MainViewModel: BaseViewModel {
     
     func transform(input: Input) -> Output {
         
-        return Output()
+        return Output(settingButtonTapped: input.settingButtonTapped)
     }
 }

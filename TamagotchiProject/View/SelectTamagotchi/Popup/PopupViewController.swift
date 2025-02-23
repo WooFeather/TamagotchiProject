@@ -26,7 +26,6 @@ final class PopupViewController: BaseViewController {
         let input = PopupViewModel.Input(
             cancelButtonTapped: popupView.cancelButton.rx.tap,
             startButtonTapped: popupView.startButton.rx.tap,
-            selectedImageData: selectedImageData,
             selectedName: selectedName
         )
         let output = viewModel.transform(input: input)
@@ -47,7 +46,6 @@ final class PopupViewController: BaseViewController {
         
         output.startButtonTapped
             .bind(with: self) { owner, _ in
-                selectedImageData.onNext(owner.popupView.imageView.image?.pngData() ?? Data())
                 selectedName.onNext(owner.popupView.nameLabel.text ?? "")
                 
                 let vc = MainViewController()
