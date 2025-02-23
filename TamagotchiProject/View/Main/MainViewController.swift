@@ -26,7 +26,13 @@ final class MainViewController: BaseViewController {
     }
     
     override func bind() {
-        let input = MainViewModel.Input(settingButtonTapped: navigationItem.rightBarButtonItem?.rx.tap)
+        let input = MainViewModel.Input(
+            settingButtonTapped: navigationItem.rightBarButtonItem?.rx.tap,
+            riceButtonTapped: mainView.riceButton.rx.tap,
+            waterButtonTapped: mainView.waterButton.rx.tap,
+            riceText: mainView.riceTextField.textField.rx.text.orEmpty,
+            waterText: mainView.waterTextField.textField.rx.text.orEmpty
+        )
         let output = viewModel.transform(input: input)
         
         output.settingButtonTapped!
@@ -42,23 +48,25 @@ final class MainViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        // TODO: ViewModel로 빼기
-        mainView.riceButton.rx.tap
-            .bind(with: self) { owner, _ in
+        output.riceCount
+            .bind(with: self) { owner, value in
                 // TODO: bubble의 메세지 바꾸기
                 // TODO: 텍스트필드에 아무것도 없었다면 riceCount 올리기 -> statusLabel에 반영
                 // TODO: 텍스트필드에 텍스트가 있다면, 한번에 99개까지만 먹을 수 있고, 그 이상 먹으면 alert띄우기
                 // TODO: 레벨 계산 및 다마고치 이미지 반영
+                print("riceCount:", value)
+                owner.mainView.riceTextField.textField.text = ""
             }
             .disposed(by: disposeBag)
         
-        // TODO: ViewModel로 빼기
-        mainView.waterButton.rx.tap
-            .bind(with: self) { owner, _ in
+        output.waterCount
+            .bind(with: self) { owner, value in
                 // TODO: bubble의 메세지 바꾸기
                 // TODO: 텍스트필드에 아무것도 없었다면 waterCount 올리기 -> statusLabel에 반영
                 // TODO: 텍스트필드에 텍스트가 있다면, 한번에 49개까지만 먹을 수 있고, 그 이상 먹으면 alert띄우기
                 // TODO: 레벨 계산 및 다마고치 이미지 반영
+                print("waterCount:", value)
+                owner.mainView.riceTextField.textField.text = ""
             }
             .disposed(by: disposeBag)
         
