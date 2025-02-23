@@ -15,23 +15,10 @@ final class MainViewController: BaseViewController {
     private let disposeBag = DisposeBag()
     private let viewModel = MainViewModel()
     
-    // TODO: ViewModel로 빼기
-    let tamagotchiImageList = TamagotchiSelection.allCases
-    var level = UserDefaultsManager.level
-    var riceCount = UserDefaultsManager.riceCount
-    var waterCount = UserDefaultsManager.waterCount
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // TODO: ViewModel로 빼기
-        if UserDefaultsManager.tamagotchiName == "따끔따끔 다마고치" {
-            mainView.tamagotchiImageView.image = tamagotchiImageList[0].imageSet[level]
-        } else if UserDefaultsManager.tamagotchiName == "방실방실 다마고치" {
-            mainView.tamagotchiImageView.image = tamagotchiImageList[1].imageSet[level]
-        } else {
-            mainView.tamagotchiImageView.image = tamagotchiImageList[2].imageSet[level]
-        }
+        // TODO: 메인뷰가 보일때마가 bubble의 메세지 변경하기
     }
     
     override func loadView() {
@@ -46,6 +33,12 @@ final class MainViewController: BaseViewController {
             .bind(with: self) { owner, _ in
                 let vc = SettingViewController()
                 owner.navigationController?.pushViewController(vc, animated: true)
+            }
+            .disposed(by: disposeBag)
+        
+        output.tamagotchiImageData
+            .bind(with: self) { owner, data in
+                owner.mainView.tamagotchiImageView.image = UIImage(data: data)
             }
             .disposed(by: disposeBag)
         

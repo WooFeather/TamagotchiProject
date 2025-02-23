@@ -7,10 +7,21 @@
 
 import UIKit
 
-enum TamagotchiSelection: CaseIterable {
+enum TamagotchiList: CaseIterable {
     case firstTamagotchi
     case secondTamagotchi
     case thirdTamagotchi
+    
+    var name: String {
+        switch self {
+        case .firstTamagotchi:
+            return "따끔따끔 다마고치"
+        case .secondTamagotchi:
+            return "방실방실 다마고치"
+        case .thirdTamagotchi:
+            return "반짝반짝 다마고치"
+        }
+    }
     
     var imageSet: [UIImage] {
         switch self {
