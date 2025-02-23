@@ -33,6 +33,8 @@ final class MainViewModel: BaseViewModel {
         let tamagotchiImageData: Observable<Data>
         let riceCount: Observable<Int>
         let waterCount: Observable<Int>
+        let invalidRice: Observable<Bool>
+        let invalidWater: Observable<Bool>
     }
     
     init() {
@@ -50,6 +52,8 @@ final class MainViewModel: BaseViewModel {
         let level = BehaviorSubject(value: level)
         let riceCount = BehaviorSubject(value: riceCount)
         let waterCount = BehaviorSubject(value: waterCount)
+        let invalidRice = BehaviorSubject(value: false)
+        let invalidWater = BehaviorSubject(value: false)
         
         let riceText = input.riceText
             .map { $0.trimmingCharacters(in: .whitespaces) }
@@ -77,15 +81,45 @@ final class MainViewModel: BaseViewModel {
         // 2-2. 변환 가능할 경우 해당 숫자가 100보다 작은지 판단
         // 3-1. 100보다 작을 경우 -> output에 들어갈 riceCount에 해당 값을 전달
         // 3-2. 100보다 클 경우 -> VC에 Alert를 띄울 수 있는 output에 값을 전달
+//        input.riceButtonTapped
+//            .withLatestFrom(riceText)
+//            .bind(with: self) { owner, riceText in
+//                let intRiceText = Int(riceText)
+//                
+//                // 공백일 때
+//                if riceText.isEmpty {
+//                    print("밥알 공백")
+//                    invalidRice.onNext(false)
+//                    owner.riceCount += 1
+//                    riceCount.onNext(owner.riceCount)
+//                    UserDefaultsManager.riceCount = owner.riceCount
+//                } else {
+//                    // Int로 변환하는 과정
+//                    if intRiceText ?? 0 < 100 {
+//                        print("밥알 괜춘")
+//                        invalidRice.onNext(false)
+//                        owner.riceCount += intRiceText ?? 0
+//                        riceCount.onNext(owner.riceCount)
+//                        UserDefaultsManager.riceCount = owner.riceCount
+//                    } else {
+//                        print("밥알 숫자로 못바꾸거나 100이상")
+//                        invalidRice.onNext(true)
+//                    }
+//                }
+//            }
+//            .disposed(by: disposeBag)
+        
         input.riceButtonTapped
             .withLatestFrom(riceText)
             .bind(with: self) { owner, riceText in
                 if riceText.isEmpty {
                     owner.riceCount += 1
                     riceCount.onNext(owner.riceCount)
+                    UserDefaultsManager.riceCount = owner.riceCount
                 } else {
                     owner.riceCount += (Int(riceText) ?? 0)
                     riceCount.onNext(owner.riceCount)
+                    UserDefaultsManager.riceCount = owner.riceCount
                 }
             }
             .disposed(by: disposeBag)
@@ -96,18 +130,48 @@ final class MainViewModel: BaseViewModel {
                 if waterText.isEmpty {
                     owner.waterCount += 1
                     waterCount.onNext(owner.waterCount)
+                    UserDefaultsManager.waterCount = owner.waterCount
                 } else {
                     owner.waterCount += (Int(waterText) ?? 0)
                     waterCount.onNext(owner.waterCount)
+                    UserDefaultsManager.waterCount = owner.waterCount
                 }
             }
             .disposed(by: disposeBag)
+        
+//        input.waterButtonTapped
+//            .withLatestFrom(waterText)
+//            .bind(with: self) { owner, waterText in
+//                let intWaterText = Int(waterText)
+//                
+//                if waterText.isEmpty {
+//                    print("물방울 공백")
+//                    invalidWater.onNext(false)
+//                    owner.waterCount += 1
+//                    waterCount.onNext(owner.waterCount)
+//                    UserDefaultsManager.waterCount = owner.waterCount
+//                } else {
+//                    if intWaterText ?? 0 < 50 {
+//                        print("물방울 괜춘")
+//                        invalidWater.onNext(false)
+//                        owner.waterCount += intWaterText ?? 0
+//                        riceCount.onNext(owner.waterCount)
+//                        UserDefaultsManager.waterCount = owner.waterCount
+//                    } else {
+//                        print("물방울 숫자로 못바꾸거나 50이상")
+//                        invalidWater.onNext(true)
+//                    }
+//                }
+//            }
+//            .disposed(by: disposeBag)
         
         return Output(
             settingButtonTapped: input.settingButtonTapped,
             tamagotchiImageData: imageData,
             riceCount: riceCount,
-            waterCount: waterCount
+            waterCount: waterCount,
+            invalidRice: invalidRice,
+            invalidWater: invalidWater
         )
     }
     

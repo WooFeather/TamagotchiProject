@@ -106,7 +106,7 @@ final class MainView: BaseView {
         
         tamagotchiNameLabel.text = UserDefaultsManager.tamagotchiName
         
-        statusLabel.text = "LV1 • 밥알 0개 • 물방울 0개"
+//        statusLabel.text = "LV1 • 밥알 0개 • 물방울 0개"
         statusLabel.font = .boldSystemFont(ofSize: 14)
         statusLabel.textColor = .tpAccent
         
