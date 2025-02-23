@@ -26,6 +26,14 @@ final class SelectTamagotchiViewModel: BaseViewModel {
         let tamagotchiData: ControlEvent<Tamagotchi>
     }
     
+    init() {
+        print("SelectTamagotchiViewModel Init")
+    }
+    
+    deinit {
+        print("SelectTamagotchiViewModel Deinit")
+    }
+    
     func transform(input: Input) -> Output {
         
         let isValidate = input.cellIndex

@@ -15,11 +15,12 @@ final class MainViewController: BaseViewController {
     private let disposeBag = DisposeBag()
     private let viewModel = MainViewModel()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        // TODO: 메인뷰가 보일때마가 bubble의 메세지 변경하기
-    }
+//    override func viewDidAppear(_ animated: Bool) {
+//        super.viewDidAppear(animated)
+//        
+//        // TODO: 메인뷰가 보일때마가 bubble의 메세지 변경하기
+//        viewDidAppearBind()
+//    }
     
     override func loadView() {
         view = mainView
@@ -51,7 +52,7 @@ final class MainViewController: BaseViewController {
         // 이렇게 zip으로 묶으면 제대로 동작을 안함 => combineLatest로 해결
         Observable.combineLatest(output.riceCount, output.waterCount)
             .bind(with: self) { owner, value in
-                print("riceCount:", value)
+                print("riceCount:", value.0, "waterCount:", value.1)
                 owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(value.0)개 • 물방울 \(value.1)개"
                 owner.mainView.riceTextField.textField.text = ""
                 owner.mainView.waterTextField.textField.text = ""
@@ -81,7 +82,28 @@ final class MainViewController: BaseViewController {
                 }
             }
             .disposed(by: disposeBag)
+        
+        output.bubbleMessage
+            .bind(to: mainView.bubbleLabel.rx.text)
+            .disposed(by: disposeBag)
     }
+    
+    // mainView가 보일때마다 bubbleMessage를 변경해줘야 해서 이런 방식을 택했는데... 과연 좋은 방법일지
+    // => 결과가 두배로 나옴 별로 좋지 않은 방법인듯
+//    private func viewDidAppearBind() {
+//        let input = MainViewModel.Input(
+//            settingButtonTapped: navigationItem.rightBarButtonItem?.rx.tap,
+//            riceButtonTapped: mainView.riceButton.rx.tap,
+//            waterButtonTapped: mainView.waterButton.rx.tap,
+//            riceText: mainView.riceTextField.textField.rx.text.orEmpty,
+//            waterText: mainView.waterTextField.textField.rx.text.orEmpty
+//        )
+//        let output = viewModel.transform(input: input)
+//        
+//        output.bubbleMessage
+//            .bind(to: mainView.bubbleLabel.rx.text)
+//            .disposed(by: disposeBag)
+//    }
 
     override func configureView() {
         view.backgroundColor = .tpBackground

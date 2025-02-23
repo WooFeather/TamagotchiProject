@@ -23,6 +23,14 @@ final class SettingViewModel: BaseViewModel {
         let cellTapped: ControlEvent<IndexPath>
     }
     
+    init() {
+        print("SettingViewModel Init")
+    }
+    
+    deinit {
+        print("SettingViewModel Deinit")
+    }
+    
     func transform(input: Input) -> Output {
         
         return Output(

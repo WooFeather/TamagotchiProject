@@ -35,6 +35,7 @@ final class MainViewModel: BaseViewModel {
         let waterCount: Observable<Int>
         let invalidRice: Observable<Bool>
         let invalidWater: Observable<Bool>
+        let bubbleMessage: Observable<String>
     }
     
     init() {
@@ -54,6 +55,7 @@ final class MainViewModel: BaseViewModel {
         let waterCount = BehaviorSubject(value: waterCount)
         let invalidRice = BehaviorSubject(value: false)
         let invalidWater = BehaviorSubject(value: false)
+        let bubbleMessage = BehaviorSubject(value: "")
         
         let riceText = input.riceText
             .map { $0.trimmingCharacters(in: .whitespaces) }
@@ -69,7 +71,6 @@ final class MainViewModel: BaseViewModel {
         // 2-2. 변환 가능할 경우 해당 숫자가 100보다 작은지 판단
         // 3-1. 100보다 작을 경우 -> output에 들어갈 riceCount에 해당 값을 전달
         // 3-2. 100보다 클 경우 -> VC에 Alert를 띄울 수 있는 output에 값을 전달
-        // TODO: 버블 메세지 변경
         input.riceButtonTapped
             .withLatestFrom(riceText)
             .bind(with: self) { owner, riceText in
@@ -128,6 +129,7 @@ final class MainViewModel: BaseViewModel {
                 } else {
                     imageData.onNext(owner.tamagotchiList[2].imageSet[value.1 - 1].pngData() ?? Data())
                 }
+                bubbleMessage.onNext(owner.randomMessage())
             }
             .disposed(by: disposeBag)
         
@@ -137,7 +139,8 @@ final class MainViewModel: BaseViewModel {
             riceCount: riceCount,
             waterCount: waterCount,
             invalidRice: invalidRice,
-            invalidWater: invalidWater
+            invalidWater: invalidWater,
+            bubbleMessage: bubbleMessage
         )
     }
     
@@ -172,8 +175,22 @@ final class MainViewModel: BaseViewModel {
         UserDefaultsManager.level = level
     }
     
-    private func randomMessage() {
-        // 버블에 랜덤 메세지 보여주기 -> 시점은 메인뷰가 보여질때마다
-        print(#function)
+    private func randomMessage() -> String {
+        // 버블에 랜덤 메세지 보여주기 -> 시점은 메인뷰가 보여질때마다 / 버튼이 눌릴때마다
+        
+        let nickname = UserDefaultsManager.nickname
+        let bubbleMessage = [
+            "복습 아직 안하셨다구요? 지금 잠이 오세요? \(nickname)님??", 
+            "\(nickname)님, 밥주세요!",
+            "좋은 하루보내세요, \(nickname)님",
+            "\(nickname)님! 깃헙 푸시 하셨나요?",
+            "오늘도 저와함께 성장해요 \(nickname)님!",
+            "\(nickname)님 심심해요 ㅜ ㅜ",
+            "\(nickname)님, 저랑 놀아주세요!", 
+            "\(nickname)님, 오늘 날씨는 어때요?",
+            "\(nickname)님, 일어나셨으면 코딩하셔야죠!"
+        ]
+        
+        return bubbleMessage.randomElement() ?? ""
     }
 }

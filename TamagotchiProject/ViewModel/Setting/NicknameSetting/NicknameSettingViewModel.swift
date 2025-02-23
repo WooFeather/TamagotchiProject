@@ -25,6 +25,14 @@ final class NicknameSettingViewModel: BaseViewModel {
         let validation: Observable<Bool>
     }
     
+    init() {
+        print("NicknameSettingViewModel Init")
+    }
+    
+    deinit {
+        print("NicknameSettingViewModel Deinit")
+    }
+    
     func transform(input: Input) -> Output {
         
         let validation = input.newNickname

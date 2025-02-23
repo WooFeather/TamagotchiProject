@@ -26,6 +26,14 @@ final class PopupViewModel: BaseViewModel {
         let startButtonTapped: ControlEvent<Void>
     }
     
+    init() {
+        print("PopupViewModel Init")
+    }
+    
+    deinit {
+        print("PopupViewModel Deinit")
+    }
+    
     func transform(input: Input) -> Output {
         input.selectedName
             .bind(with: self) { owner, value in
