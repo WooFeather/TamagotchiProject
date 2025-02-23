@@ -48,11 +48,19 @@ final class MainViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
+        // 이렇게 zip으로 묶으면 제대로 동작을 안함
+//        Observable.zip(output.riceCount, output.waterCount)
+//            .bind(with: self) { owner, value in
+//                print("riceCount:", value)
+//                owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(value.0)개 • 물방울 \(value.1)개"
+//                owner.mainView.riceTextField.textField.text = ""
+//                owner.mainView.waterTextField.textField.text = ""
+//            }
+//            .disposed(by: disposeBag)
+        
         output.riceCount
             .bind(with: self) { owner, value in
                 // TODO: bubble의 메세지 바꾸기
-                // TODO: 텍스트필드에 아무것도 없었다면 riceCount 올리기 -> statusLabel에 반영
-                // TODO: 텍스트필드에 텍스트가 있다면, 한번에 99개까지만 먹을 수 있고, 그 이상 먹으면 alert띄우기
                 // TODO: 레벨 계산 및 다마고치 이미지 반영
                 print("riceCount:", value)
                 owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(value)개 • 물방울 \(UserDefaultsManager.waterCount)개"
@@ -63,46 +71,12 @@ final class MainViewController: BaseViewController {
         output.waterCount
             .bind(with: self) { owner, value in
                 // TODO: bubble의 메세지 바꾸기
-                // TODO: 텍스트필드에 아무것도 없었다면 riceCount 올리기 -> statusLabel에 반영
-                // TODO: 텍스트필드에 텍스트가 있다면, 한번에 99개까지만 먹을 수 있고, 그 이상 먹으면 alert띄우기
                 // TODO: 레벨 계산 및 다마고치 이미지 반영
                 print("riceCount:", value)
                 owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(UserDefaultsManager.riceCount)개 • 물방울 \(value)개"
                 owner.mainView.waterTextField.textField.text = ""
             }
             .disposed(by: disposeBag)
-        
-//        Observable.zip(output.riceCount, output.waterCount)
-//            .bind(with: self) { owner, value in
-//                owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(value.0)개 • 물방울 \(value.1)개"
-//                owner.mainView.riceTextField.textField.text = ""
-//                owner.mainView.waterTextField.textField.text = ""
-//            }
-//            .disposed(by: disposeBag)
-        
-//        output.riceCount
-//            .bind(with: self) { owner, value in
-//                // TODO: bubble의 메세지 바꾸기
-//                // TODO: 텍스트필드에 아무것도 없었다면 riceCount 올리기 -> statusLabel에 반영
-//                // TODO: 텍스트필드에 텍스트가 있다면, 한번에 99개까지만 먹을 수 있고, 그 이상 먹으면 alert띄우기
-//                // TODO: 레벨 계산 및 다마고치 이미지 반영
-//                print("riceCount:", value)
-//                owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(value)개 • 물방울 \(UserDefaultsManager.waterCount)개"
-//                owner.mainView.riceTextField.textField.text = ""
-//            }
-//            .disposed(by: disposeBag)
-//        
-//        output.waterCount
-//            .bind(with: self) { owner, value in
-//                // TODO: bubble의 메세지 바꾸기
-//                // TODO: 텍스트필드에 아무것도 없었다면 waterCount 올리기 -> statusLabel에 반영
-//                // TODO: 텍스트필드에 텍스트가 있다면, 한번에 49개까지만 먹을 수 있고, 그 이상 먹으면 alert띄우기
-//                // TODO: 레벨 계산 및 다마고치 이미지 반영
-//                print("waterCount:", value)
-//                owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(UserDefaultsManager.riceCount)개 • 물방울 \(value)개"
-//                owner.mainView.waterTextField.textField.text = ""
-//            }
-//            .disposed(by: disposeBag)
         
         output.invalidRice
             .bind(with: self) { owner, isInvalid in
