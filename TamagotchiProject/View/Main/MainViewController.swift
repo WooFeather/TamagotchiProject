@@ -48,32 +48,12 @@ final class MainViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        // 이렇게 zip으로 묶으면 제대로 동작을 안함
-//        Observable.zip(output.riceCount, output.waterCount)
-//            .bind(with: self) { owner, value in
-//                print("riceCount:", value)
-//                owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(value.0)개 • 물방울 \(value.1)개"
-//                owner.mainView.riceTextField.textField.text = ""
-//                owner.mainView.waterTextField.textField.text = ""
-//            }
-//            .disposed(by: disposeBag)
-        
-        output.riceCount
+        // 이렇게 zip으로 묶으면 제대로 동작을 안함 => combineLatest로 해결
+        Observable.combineLatest(output.riceCount, output.waterCount)
             .bind(with: self) { owner, value in
-                // TODO: bubble의 메세지 바꾸기
-                // TODO: 레벨 계산 및 다마고치 이미지 반영
                 print("riceCount:", value)
-                owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(value)개 • 물방울 \(UserDefaultsManager.waterCount)개"
+                owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(value.0)개 • 물방울 \(value.1)개"
                 owner.mainView.riceTextField.textField.text = ""
-            }
-            .disposed(by: disposeBag)
-        
-        output.waterCount
-            .bind(with: self) { owner, value in
-                // TODO: bubble의 메세지 바꾸기
-                // TODO: 레벨 계산 및 다마고치 이미지 반영
-                print("riceCount:", value)
-                owner.mainView.statusLabel.text = "LV\(UserDefaultsManager.level) • 밥알 \(UserDefaultsManager.riceCount)개 • 물방울 \(value)개"
                 owner.mainView.waterTextField.textField.text = ""
             }
             .disposed(by: disposeBag)

@@ -20,7 +20,6 @@ final class PopupViewController: BaseViewController {
     }
     
     override func bind() {
-        let selectedImageData = PublishSubject<Data>()
         let selectedName = PublishSubject<String>()
         
         let input = PopupViewModel.Input(
