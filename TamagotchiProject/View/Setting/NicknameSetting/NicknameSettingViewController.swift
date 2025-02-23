@@ -40,7 +40,7 @@ final class NicknameSettingViewController: BaseViewController {
             }
             .disposed(by: disposeBag)
         
-        // TODO: 뒤로갔을 때 MainView, SettingView에 닉네임 바로 반영X => NotificationCenter써야할듯?
+        // TODO: 뒤로갔을 때 MainView, SettingView에 닉네임 바로 반영되지 않는 문제....
         output.validation
             .bind(with: self) { owner, validate in
                 if validate {
