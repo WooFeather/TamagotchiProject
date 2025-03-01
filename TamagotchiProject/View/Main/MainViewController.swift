@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import RxAppState
 
 final class MainViewController: BaseViewController {
 
@@ -32,7 +33,8 @@ final class MainViewController: BaseViewController {
             riceButtonTapped: mainView.riceButton.rx.tap,
             waterButtonTapped: mainView.waterButton.rx.tap,
             riceText: mainView.riceTextField.textField.rx.text.orEmpty,
-            waterText: mainView.waterTextField.textField.rx.text.orEmpty
+            waterText: mainView.waterTextField.textField.rx.text.orEmpty,
+            viewDidAppear: rx.viewDidAppear
         )
         let output = viewModel.transform(input: input)
         
@@ -85,6 +87,12 @@ final class MainViewController: BaseViewController {
         
         output.bubbleMessage
             .bind(to: mainView.bubbleLabel.rx.text)
+            .disposed(by: disposeBag)
+        
+        output.viewDidAppear
+            .drive(with: self) { owner, _ in
+                owner.navigationItem.title = "\(UserDefaultsManager.nickname)님의 다마고치"
+            }
             .disposed(by: disposeBag)
     }
     

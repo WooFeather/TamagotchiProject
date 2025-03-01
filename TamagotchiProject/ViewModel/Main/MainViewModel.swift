@@ -26,6 +26,7 @@ final class MainViewModel: BaseViewModel {
         let waterButtonTapped: ControlEvent<Void>
         let riceText: ControlProperty<String>
         let waterText: ControlProperty<String>
+        let viewDidAppear: Observable<Bool>
     }
     
     struct Output {
@@ -36,6 +37,7 @@ final class MainViewModel: BaseViewModel {
         let invalidRice: Observable<Bool>
         let invalidWater: Observable<Bool>
         let bubbleMessage: Observable<String>
+        let viewDidAppear: Driver<Bool>
     }
     
     init() {
@@ -140,7 +142,8 @@ final class MainViewModel: BaseViewModel {
             waterCount: waterCount,
             invalidRice: invalidRice,
             invalidWater: invalidWater,
-            bubbleMessage: bubbleMessage
+            bubbleMessage: bubbleMessage,
+            viewDidAppear: input.viewDidAppear.asDriver(onErrorJustReturn: false)
         )
     }
     

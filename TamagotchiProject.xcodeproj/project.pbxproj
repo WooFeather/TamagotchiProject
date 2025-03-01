@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		796581BD2D7311E200A3CABB /* RxAppState in Frameworks */ = {isa = PBXBuildFile; productRef = 796581BC2D7311E200A3CABB /* RxAppState */; };
 		79C7D2C92D6791C6004A464A /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; productRef = 79C7D2C82D6791C6004A464A /* RxCocoa */; };
 		79C7D2CB2D6791C6004A464A /* RxSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 79C7D2CA2D6791C6004A464A /* RxSwift */; };
 		79C7D2CE2D6791D6004A464A /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 79C7D2CD2D6791D6004A464A /* SnapKit */; };
@@ -44,6 +45,7 @@
 			files = (
 				79C7D2CE2D6791D6004A464A /* SnapKit in Frameworks */,
 				79C7D2CB2D6791C6004A464A /* RxSwift in Frameworks */,
+				796581BD2D7311E200A3CABB /* RxAppState in Frameworks */,
 				79C7D2C92D6791C6004A464A /* RxCocoa in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -90,6 +92,7 @@
 				79C7D2C82D6791C6004A464A /* RxCocoa */,
 				79C7D2CA2D6791C6004A464A /* RxSwift */,
 				79C7D2CD2D6791D6004A464A /* SnapKit */,
+				796581BC2D7311E200A3CABB /* RxAppState */,
 			);
 			productName = TamagotchiProject;
 			productReference = 79C7D2722D678C7B004A464A /* TamagotchiProject.app */;
@@ -122,6 +125,7 @@
 			packageReferences = (
 				79C7D2C72D6791C6004A464A /* XCRemoteSwiftPackageReference "RxSwift" */,
 				79C7D2CC2D6791D6004A464A /* XCRemoteSwiftPackageReference "SnapKit" */,
+				796581BB2D7311E200A3CABB /* XCRemoteSwiftPackageReference "RxAppState" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 79C7D2732D678C7B004A464A /* Products */;
@@ -363,6 +367,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		796581BB2D7311E200A3CABB /* XCRemoteSwiftPackageReference "RxAppState" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/pixeldock/RxAppState.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.1;
+			};
+		};
 		79C7D2C72D6791C6004A464A /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
@@ -382,6 +394,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		796581BC2D7311E200A3CABB /* RxAppState */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 796581BB2D7311E200A3CABB /* XCRemoteSwiftPackageReference "RxAppState" */;
+			productName = RxAppState;
+		};
 		79C7D2C82D6791C6004A464A /* RxCocoa */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 79C7D2C72D6791C6004A464A /* XCRemoteSwiftPackageReference "RxSwift" */;
